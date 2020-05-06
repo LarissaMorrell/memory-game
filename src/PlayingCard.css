@@ -1,0 +1,13 @@
+.PlayingCard {
+  width: 150px;
+  height: 200px;
+  border: black solid 2px;
+  border-radius: 5px;
+  margin: 20px;
+  text-align: center;
+}
+
+.face-down {
+  background-color: tan;
+  color: brown;
+}
