@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import PlayingCard from "./PlayingCard";
-import './Game.css';
+import './Board.css';
 
-function Game({level}) {
+function Board({ level, cardValues }) {
   const [matched, setMatched] = useState(new Set());
   const [selectedVal, setSelectedVal] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
 
   const handleClick = (id, value) => {
-    console.log(selectedIds)
-    if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 2) return;
+    if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 1) return;
 
-    // When a card has already been selected, we check the value
+    // When a card has already been selected, we check the value.
     // If the value matches, we add it to matched and reset our selected
-    // Otherwise, we add the new id to selected and then reset it 1.5 secs later
+    // Otherwise, we add the new id to selected and then reset selected 1.5 secs later
     if (selectedIds.length) {
       if (value === selectedVal) {
         setMatched(new Set(matched).add(selectedIds[0]).add(id));
@@ -38,8 +37,8 @@ function Game({level}) {
         <PlayingCard
           key={cardId}
           id={cardId}
-          value={r}
-          faceDown={matched.has(cardId) || selectedIds.includes(cardId)}
+          value={cardValues[r * level + c]}
+          faceUp={matched.has(cardId) || selectedIds.includes(cardId)}
           handleClick={handleClick}
         />);
     }
@@ -53,4 +52,4 @@ function Game({level}) {
   );
 }
 
-export default Game;
+export default Board;

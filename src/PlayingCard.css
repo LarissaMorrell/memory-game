@@ -1,6 +1,6 @@
 .PlayingCard {
-  width: 150px;
-  height: 200px;
+  width: 10vw;
+  height: 15vw;
   border: black solid 2px;
   border-radius: 5px;
   margin: 20px;
@@ -9,7 +9,7 @@
   color: sienna;
 }
 
-.face-down {
+.face-up-card {
   background-color: wheat;
   color: brown;
 }
