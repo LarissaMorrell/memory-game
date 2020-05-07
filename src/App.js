@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import Board from './Board';
+import Board from './containers/Board';
 import './App.css';
 
 function App() {
   const [level, setLevel] = useState(null);
   const [cardValues, setCardValues] = useState();
 
-  const handleSelection = ({ target }) => {
-    const level = target.value;
+  const handleSelection = level => {
     setLevel(level);
     assignCardValues(level);
   };
@@ -33,23 +32,21 @@ function App() {
   
   return (
     <div className="App">
-      {console.log("app render")}
+      <header>
+        <h1>Quarantine Time Killer: Match Game</h1>
+        <p>A project created by Larissa Morrell, May 2020</p>
+      </header>
       {level ? (
           <Board level={level} cardValues={cardValues} />
         ) : (
-        <div className="selection-container">
-          <label htmlFor="level-select">
-            Pick your level:
-          </label>
-          <select
-            id="level-select"
-            onChange={handleSelection}
-          >
-            <option value="2">Piggy Bank</option>
-            <option value="4">Savings Account</option>
-            <option value="6">High Risk Assets</option>
-          </select>
-        </div>
+        <>
+          <p>Pick your level</p>
+          <div className="level-btn-container">
+            <button onClick={() => handleSelection(2)}>Piggy Bank</button>
+            <button onClick={() => handleSelection(4)}>Savings Account</button>
+            <button onClick={() => handleSelection(6)}>High Risk Assets</button>
+          </div>
+        </>
       )}
     </div>
   );

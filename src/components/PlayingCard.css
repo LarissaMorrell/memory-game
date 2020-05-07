@@ -1,0 +1,24 @@
+.PlayingCard {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10vw;
+  min-width: 80px;
+  height: 15vw;
+  min-height: 120px;
+  border-radius: 5px;
+  margin: 20px;
+  background-color: #0E2D59;
+}
+
+.face-up-card {
+  border: solid 8px #0E2D59;
+  background-color: #ffffff;
+  color: #0E2D59;
+  font-size: 60px;
+}
+
+.PlayingCard > img {
+  max-width: 80%;
+}
