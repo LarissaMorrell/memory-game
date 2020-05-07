@@ -6,7 +6,7 @@ const PlayingCard = ({ id, value, faceDown, handleClick }) => (
       className={`PlayingCard${faceDown ? " face-down" : ""}`}
       onClick={() => handleClick(id, value)}
     >
-      <p>{value}</p>
+      {faceDown && <p>{value}</p>}
     </div>
   );
 

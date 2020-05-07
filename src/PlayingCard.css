@@ -5,9 +5,11 @@
   border-radius: 5px;
   margin: 20px;
   text-align: center;
+  background-color: tan;
+  color: sienna;
 }
 
 .face-down {
-  background-color: tan;
+  background-color: wheat;
   color: brown;
 }
