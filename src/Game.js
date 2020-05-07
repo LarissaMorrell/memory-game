@@ -2,19 +2,30 @@ import React, { useState } from "react";
 import PlayingCard from "./PlayingCard";
 import './Game.css';
 
-function Game ({level}) {
+function Game({level}) {
   const [matched, setMatched] = useState(new Set());
-  const [selected, setSelected] = useState(null);
+  const [selectedVal, setSelectedVal] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const handleClick = (id, value) => {
-    if (matched.has(id)) return;
-    console.log("here", id, value)
+    console.log(selectedIds)
+    if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 2) return;
 
-    if (!selected) {
-      console.log("setting");
-      setSelected({ value, id });
+    // When a card has already been selected, we check the value
+    // If the value matches, we add it to matched and reset our selected
+    // Otherwise, we add the new id to selected and then reset it 1.5 secs later
+    if (selectedIds.length) {
+      if (value === selectedVal) {
+        setMatched(new Set(matched).add(selectedIds[0]).add(id));
+        setSelectedIds([]);
+      } else {
+        setSelectedIds([...selectedIds, id]);
+        setTimeout(() => setSelectedIds([]), 1500);
+      }
+      setSelectedVal([]);
     } else {
-      
+      setSelectedIds([id]);
+      setSelectedVal(value);
     }
   }
 
@@ -22,12 +33,13 @@ function Game ({level}) {
   for (let r = 0; r < level; r++) {
     let row = [];
     for (let c = 0; c < level; c++) {
+      const cardId = `r${r}-c${c}`;
       row.push(
         <PlayingCard
-          key={`r${r}-c${c}`}
-          id={`r${r}-c${c}`}
-          value={`${r}, ${c}`}
-          faceDown={matched.has([r,c]) || (selected && selected.id === `r${r}-c${c}`)}
+          key={cardId}
+          id={cardId}
+          value={r}
+          faceDown={matched.has(cardId) || selectedIds.includes(cardId)}
           handleClick={handleClick}
         />);
     }
