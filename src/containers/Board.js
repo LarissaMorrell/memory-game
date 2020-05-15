@@ -2,16 +2,35 @@ import React, { useState, useEffect } from "react";
 import PlayingCard from "../components/PlayingCard";
 import './Board.css';
 
-function Board({ level, cardValues, handleEndGame }) {
+function Board({ level, handleEndGame }) {
   const [matched, setMatched] = useState(new Set());
   const [selectedVal, setSelectedVal] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
+  const [cardValues, setCardValues] = useState();
 
   useEffect(() => {
     if (matched.size === Math.pow(level, 2)) {
       handleEndGame();
     }
   });
+  useEffect(() => {
+    const cards = [];
+    const cardCount = level * level;
+
+    for (let i = 0; i < cardCount; i++) {
+      cards.push(i % (cardCount / 2) + 1);
+    }
+
+    for (let i = 0; i < cardCount - 1; i++) {
+      const randIdx = Math.floor(Math.random() * (cardCount - i)) + i;
+      if (randIdx !== i) {
+        const temp = cards[i];
+        cards[i] = cards[randIdx];
+        cards[randIdx] = temp;
+      }
+    }
+    setCardValues(cards);
+  }, [level]);
 
   const handleClick = (id, value) => {
     if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 1) return;
@@ -43,19 +62,14 @@ function Board({ level, cardValues, handleEndGame }) {
         <PlayingCard
           key={cardId}
           id={cardId}
-          value={cardValues[r * level + c]}
+          value={cardValues && cardValues[r * level + c]}
           faceUp={matched.has(cardId) || selectedIds.includes(cardId)}
           handleClick={handleClick}
         />);
     }
     board.push(<div className="card-row" key={`row-${r}`}>{row}</div>);
   }
-
-  return (
-    <div>
-      {board}
-    </div>
-  );
+  return board;
 }
 
 export default Board;

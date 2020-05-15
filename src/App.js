@@ -5,13 +5,7 @@ import './App.css';
 
 function App() {
   const [level, setLevel] = useState(null);
-  const [cardValues, setCardValues] = useState();
   const [score, setScore] = useState({ wins: 0, losses: 0});
-
-  const handleSelection = level => {
-    setLevel(level);
-    assignCardValues(level);
-  };
 
   const handleEndGame = win => {
     if (win) {
@@ -22,25 +16,6 @@ function App() {
       alert("You Lose!");
     }
     setLevel(null);
-  }
-
-  const assignCardValues = (level) => {
-    const cards = [];
-    const cardCount = level * level;
-
-    for (let i = 0; i < cardCount; i++) {
-      cards.push(i % (cardCount / 2) + 1);
-    }
-
-    for (let i = 0; i < cardCount - 1; i++) {
-      const randIdx = Math.floor(Math.random() * (cardCount - i)) + i;
-      if (randIdx !== i) {
-        const temp = cards[i];
-        cards[i] = cards[randIdx];
-        cards[randIdx] = temp;
-      }
-    }
-    setCardValues(cards);
   }
   
   return (
@@ -59,8 +34,8 @@ function App() {
               Reset
             </button>
             <Timer endGame={() => handleEndGame(false)} />
-            <Board level={level}
-              cardValues={cardValues}
+            <Board
+              level={level}
               handleEndGame={() => handleEndGame(true)}
             />
           </>
@@ -68,9 +43,9 @@ function App() {
         <>
           <p>Pick your level</p>
           <div className="level-btn-container">
-            <button onClick={() => handleSelection(2)}>Piggy Bank</button>
-            <button onClick={() => handleSelection(4)}>Savings Account</button>
-            <button onClick={() => handleSelection(6)}>High Risk Assets</button>
+            <button onClick={() => setLevel(2)}>Piggy Bank</button>
+            <button onClick={() => setLevel(4)}>Savings Account</button>
+            <button onClick={() => setLevel(6)}>High Risk Assets</button>
           </div>
         </>
       )}
