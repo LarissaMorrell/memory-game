@@ -30,3 +30,18 @@ button:hover {
   background-color: white;
   color: #0E2D59;
 }
+
+.reset-button {
+  background-color: white;
+  color: #0E2D59;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: initial;
+}
+
+.reset-button:hover {
+  background-color: #0E2D59;
+  color: white;
+}
+
