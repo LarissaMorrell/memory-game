@@ -12,6 +12,7 @@
 
 .App .level-btn-container {
   flex-direction: row;
+  align-items: center;
 }
 
 button {
@@ -21,19 +22,19 @@ button {
   border-radius: 8px;
   width: 200px;
   font-size: 1em;
-  border: 3px solid #0E2D59;
-  background-color: #0E2D59;
+  border: 3px solid #1F2E5A;
+  background-color: #1F2E5A;
   color: white;
 }
 
 button:hover {
   background-color: white;
-  color: #0E2D59;
+  color: #1F2E5A;
 }
 
 .reset-button {
   background-color: white;
-  color: #0E2D59;
+  color: #1F2E5A;
   position: absolute;
   right: 0;
   top: 0;
@@ -41,7 +42,7 @@ button:hover {
 }
 
 .reset-button:hover {
-  background-color: #0E2D59;
+  background-color: #1F2E5A;
   color: white;
 }
 

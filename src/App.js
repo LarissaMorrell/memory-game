@@ -22,18 +22,23 @@ function App() {
     <div className="App">
       <header>
         <h1>Quarantine Time Killer: Match Game</h1>
-        <p>A project created by Larissa Morrell, May 2020</p>
-        <p>You will have 90 seconds to complete all matches</p>
+        {level ?
+          <Timer endGame={() => handleEndGame(false)} />
+          : (
+          <div>
+            <p>A project created by Larissa Morrell, May 2020</p>
+            <p>You will have 90 seconds to complete all matches. Beat the clock to win the round!</p>
+          </div>
+        )}
+        <h3 className="scoreboard">
+          {`Wins: ${score.wins}, Losses: ${score.losses}`}
+        </h3>
       </header>
-      <h3 className="scoreboard">
-        {`Wins: ${score.wins}, Losses: ${score.losses}`}
-      </h3>
       {level ? (
           <>
             <button className="reset-button" onClick={() => handleEndGame(false)}>
               Reset
             </button>
-            <Timer endGame={() => handleEndGame(false)} />
             <Board
               level={level}
               handleEndGame={() => handleEndGame(true)}
@@ -43,9 +48,9 @@ function App() {
         <>
           <p>Pick your level</p>
           <div className="level-btn-container">
-            <button onClick={() => setLevel(2)}>Piggy Bank</button>
-            <button onClick={() => setLevel(4)}>Savings Account</button>
-            <button onClick={() => setLevel(6)}>High Risk Assets</button>
+            <button onClick={() => setLevel(2)}>Beginner</button>
+            <button onClick={() => setLevel(4)}>Intermediate</button>
+            <button onClick={() => setLevel(6)}>Advanced</button>
           </div>
         </>
       )}

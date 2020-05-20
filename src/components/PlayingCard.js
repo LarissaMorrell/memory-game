@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/jh_logo.png';
+import logo from '../assets/card_design.jpg';
 import './PlayingCard.css';
 
 const PlayingCard = ({ id, value, faceUp, handleClick }) => (
