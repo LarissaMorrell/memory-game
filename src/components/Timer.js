@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { AccessAlarm } from '@material-ui/icons';
+import './Timer.css';
 
 const Timer = ({ endGame }) => {
   const [time, setTime] = useState(90000);
@@ -13,9 +15,12 @@ const Timer = ({ endGame }) => {
   }});
 
   return (
-    <h2 style={ time <= 5000 ? { color: "red" } : null}>
-      {moment(time).format('m:ss')}
-    </h2>
+    <div className="Timer">
+      <AccessAlarm className="icon" style={ time <= 5000 ? { color: "red" } : null} />
+      <h2 style={ time <= 5000 ? { color: "red" } : null}>
+        {moment(time).format('m:ss')}
+      </h2>
+    </div>
   );
 }
 

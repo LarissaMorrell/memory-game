@@ -9,6 +9,7 @@
   min-height: 120px;
   border-radius: 5px;
   margin: 20px;
+  padding: 8px;
   border: solid 1px #000000;
 }
 
@@ -17,5 +18,6 @@
 }
 
 .PlayingCard > img {
-  width: 90%;
+  height: 100%;
+  width: 100%;
 }

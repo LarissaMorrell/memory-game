@@ -15,34 +15,6 @@
   align-items: center;
 }
 
-button {
-  margin: 20px;
-  padding: 15px;
-  transition-duration: 0.4s;
-  border-radius: 8px;
-  width: 200px;
-  font-size: 1em;
-  border: 3px solid #1F2E5A;
-  background-color: #1F2E5A;
-  color: white;
+.App button {
+  margin: 15px;
 }
-
-button:hover {
-  background-color: white;
-  color: #1F2E5A;
-}
-
-.reset-button {
-  background-color: white;
-  color: #1F2E5A;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: initial;
-}
-
-.reset-button:hover {
-  background-color: #1F2E5A;
-  color: white;
-}
-

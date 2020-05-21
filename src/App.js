@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
 import Timer from './components/Timer';
 import Board from './containers/Board';
+import Overlay from './components/Overlay';
+import Modal from './components/Modal';
 import './App.css';
 
 function App() {
   const [level, setLevel] = useState(null);
   const [score, setScore] = useState({ wins: 0, losses: 0});
+  const [modal, setModal] = useState(null);
 
-  const handleEndGame = win => {
-    if (win) {
+  const handleEndGame = (resetLevel=true) => {
+    if (modal === "win") {
       setScore({ ...score, wins: score.wins + 1 });
-      alert("You Win!");
-    } else {
+    } else if (modal === "lose") {
       setScore({ ...score, losses: score.losses + 1 });
-      alert("You Lose!");
     }
-    setLevel(null);
+    resetLevel && setLevel(null);
+    setModal(null);
   }
   
   return (
@@ -36,23 +39,29 @@ function App() {
       </header>
       {level ? (
           <>
-            <button className="reset-button" onClick={() => handleEndGame(false)}>
+            <Button onClick={() => handleEndGame(false)}>
               Reset
-            </button>
+            </Button>
             <Board
               level={level}
-              handleEndGame={() => handleEndGame(true)}
+              winGame={() => setModal("win")}
             />
           </>
         ) : (
         <>
           <p>Pick your level</p>
           <div className="level-btn-container">
-            <button onClick={() => setLevel(2)}>Beginner</button>
-            <button onClick={() => setLevel(4)}>Intermediate</button>
-            <button onClick={() => setLevel(6)}>Advanced</button>
+            <Button onClick={() => setLevel(2)} variant="contained" size="large">Beginner</Button>
+            <Button onClick={() => setLevel(4)} variant="contained" size="large">Intermediate</Button>
+            <Button onClick={() => setLevel(6)} variant="contained" size="large">Advanced</Button>
           </div>
         </>
+      )}
+      {modal && (
+        <Overlay
+          closeOverlay={modal === "reset" ? () => setModal(null) : null}
+          content={<Modal type={modal} endGamePress={handleEndGame}/>}
+        />
       )}
     </div>
   );
