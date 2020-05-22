@@ -3,7 +3,8 @@ import { Button } from '@material-ui/core';
 import Timer from './components/Timer';
 import Board from './containers/Board';
 import Overlay from './components/Overlay';
-import Modal from './components/Modal';
+import WinLoseModal from './components/WinLoseModal';
+import ResetModal from './components/ResetModal';
 import './App.css';
 
 function App() {
@@ -14,19 +15,19 @@ function App() {
   const handleEndGame = (resetLevel=true) => {
     if (modal === "win") {
       setScore({ ...score, wins: score.wins + 1 });
-    } else if (modal === "lose") {
+    } else if (modal === "lose" || modal === "reset") {
       setScore({ ...score, losses: score.losses + 1 });
     }
     resetLevel && setLevel(null);
     setModal(null);
   }
-  
+
   return (
     <div className="App">
       <header>
         <h1>Quarantine Time Killer: Match Game</h1>
         {level ?
-          <Timer endGame={() => handleEndGame(false)} />
+          <Timer endGame={() => setModal("lose")} />
           : (
           <div>
             <p>A project created by Larissa Morrell, May 2020</p>
@@ -39,7 +40,7 @@ function App() {
       </header>
       {level ? (
           <>
-            <Button onClick={() => handleEndGame(false)}>
+            <Button onClick={() => setModal("reset")}>
               Reset
             </Button>
             <Board
@@ -57,10 +58,17 @@ function App() {
           </div>
         </>
       )}
-      {modal && (
+      {(modal === "win" || modal === "lose") && (
         <Overlay
-          closeOverlay={modal === "reset" ? () => setModal(null) : null}
-          content={<Modal type={modal} endGamePress={handleEndGame}/>}
+          content={<WinLoseModal type={modal} endGamePress={handleEndGame}/>}
+        />
+      )}
+      {modal === "reset" && (
+        <Overlay
+          closeOverlay={() => setModal(null)}
+          content={
+            <ResetModal endGamePress={handleEndGame} cancelPress={() => setModal(null)} />
+          }
         />
       )}
     </div>

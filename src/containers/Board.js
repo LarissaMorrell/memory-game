@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PlayingCard from "../components/PlayingCard";
 import './Board.css';
 
-function Board({ level, winGame}) {
+function Board({ level, winGame }) {
   const [matched, setMatched] = useState(new Set());
   const [selectedVal, setSelectedVal] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -13,6 +13,7 @@ function Board({ level, winGame}) {
       winGame();
     }
   });
+
   useEffect(() => {
     const cards = [];
     const cardCount = level * level;
@@ -31,10 +32,6 @@ function Board({ level, winGame}) {
     }
     setCardValues(cards);
   }, [level]);
-
-  const handleNewGame = () => {
-
-  }
 
   const handleClick = (id, value) => {
     if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 1) return;

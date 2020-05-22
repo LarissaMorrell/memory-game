@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-const Modal = ({ type, endGamePress }) => {
+const WinLoseModal = ({ type, endGamePress }) => {
 	let content;
 	if (type === "win")
 		content = <h1>You Win!</h1>;
@@ -16,7 +16,7 @@ const Modal = ({ type, endGamePress }) => {
 		);
 
 	return (
-		<div className="Modal">
+		<div className="WinLoseModal">
 			{content}
 			<Button
 				color="primary"
@@ -37,4 +37,4 @@ const Modal = ({ type, endGamePress }) => {
 	);
 }
 
-export default Modal;
+export default WinLoseModal;
