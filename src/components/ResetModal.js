@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-const ResetModal = ({ endGamePress, cancelPress }) => (
+const ResetModal = ({ resetGamePress, cancelPress }) => (
 	<div className="ResetModal">
 		<h1>Are you sure?</h1>
 		<p>You will be forfeiting this round.</p>
@@ -9,14 +9,14 @@ const ResetModal = ({ endGamePress, cancelPress }) => (
 			color="primary"
 			size="medium"
 			variant="contained"
-			onClick={() => endGamePress()}
+			onClick={() => resetGamePress()}
 		>
 			Play Again!
 		</Button>
 		<Button
 			size="medium"
 			variant="outlined"
-			onClick={() => endGamePress(null)}
+			onClick={() => resetGamePress(null)}
 		>
 			Change Level
 		</Button>

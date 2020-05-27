@@ -21,13 +21,18 @@ function App() {
     }
   }
 
-  const handleNewGame = (newLevel) => {
+  const handleNewGame = newLevel => {
     setModal(null);
     setGameID(Math.floor(Math.random() * 100000000));
     typeof newLevel !== "undefined" && setLevel(newLevel);
   }
 
-  const viewWinLoseModal = win => {
+  const handleResetGame = newLevel => {
+    handleScoreChange(false);
+    handleNewGame(newLevel)
+  }
+
+  const handleWinLoseGame = win => {
     handleScoreChange(win);
     setModal(win ? "win" : "lose");
   }
@@ -39,8 +44,8 @@ function App() {
         {level ? (
           <Timer
             gameID={gameID}
-            paused={!!modal}
-            handleLoseGame={() => viewWinLoseModal(false)}
+            paused={modal === "lose" || modal === "win"}
+            handleLoseGame={() => handleWinLoseGame(false)}
           />
           ) : (
           <div>
@@ -61,7 +66,7 @@ function App() {
               gameID={gameID}
               level={level}
               paused={!!modal}
-              handleWinGame={() => viewWinLoseModal(true)}
+              handleWinGame={() => handleWinLoseGame(true)}
             />
           </>
         ) : (
@@ -80,7 +85,7 @@ function App() {
             closeOverlay={() => setModal(null)}
             content={
               <ResetModal
-                endGamePress={handleNewGame}
+                resetGamePress={handleResetGame}
                 cancelPress={() => setModal(null)}
                 incrLoseScore={() => handleScoreChange(false)}
               />
