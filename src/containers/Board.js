@@ -58,7 +58,7 @@ function Board({ gameID, level, paused, handleWinGame }) {
         setSelectedIds([]);
       } else {
         setSelectedIds([...selectedIds, id]);
-        setTimeout(() => setSelectedIds([]), 1500);
+        setTimeout(() => setSelectedIds([]), 1000);
       }
       setSelectedVal([]);
     } else {
