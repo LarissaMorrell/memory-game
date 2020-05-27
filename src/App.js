@@ -11,24 +11,38 @@ function App() {
   const [level, setLevel] = useState(null);
   const [score, setScore] = useState({ wins: 0, losses: 0});
   const [modal, setModal] = useState(null);
+  const [gameID, setGameID] = useState();
 
-  const handleEndGame = (resetLevel=true) => {
-    if (modal === "win") {
+  const handleScoreChange = win => {
+    if (win) {
       setScore({ ...score, wins: score.wins + 1 });
-    } else if (modal === "lose" || modal === "reset") {
+    } else {
       setScore({ ...score, losses: score.losses + 1 });
     }
-    resetLevel && setLevel(null);
+  }
+
+  const handleNewGame = (newLevel) => {
     setModal(null);
+    setGameID(Math.floor(Math.random() * 100000000));
+    typeof newLevel !== "undefined" && setLevel(newLevel);
+  }
+
+  const viewWinLoseModal = win => {
+    handleScoreChange(win);
+    setModal(win ? "win" : "lose");
   }
 
   return (
     <div className="App">
       <header>
         <h1>Quarantine Time Killer: Match Game</h1>
-        {level ?
-          <Timer endGame={() => setModal("lose")} />
-          : (
+        {level ? (
+          <Timer
+            gameID={gameID}
+            paused={!!modal}
+            handleLoseGame={() => viewWinLoseModal(false)}
+          />
+          ) : (
           <div>
             <p>A project created by Larissa Morrell, May 2020</p>
             <p>You will have 90 seconds to complete all matches. Beat the clock to win the round!</p>
@@ -44,33 +58,43 @@ function App() {
               Reset
             </Button>
             <Board
+              gameID={gameID}
               level={level}
-              winGame={() => setModal("win")}
+              paused={!!modal}
+              handleWinGame={() => viewWinLoseModal(true)}
             />
           </>
         ) : (
         <>
           <p>Pick your level</p>
           <div className="level-btn-container">
-            <Button onClick={() => setLevel(2)} variant="contained" size="large">Beginner</Button>
-            <Button onClick={() => setLevel(4)} variant="contained" size="large">Intermediate</Button>
-            <Button onClick={() => setLevel(6)} variant="contained" size="large">Advanced</Button>
+            <Button onClick={() => handleNewGame(2)} variant="contained" size="large">Beginner</Button>
+            <Button onClick={() => handleNewGame(4)} variant="contained" size="large">Intermediate</Button>
+            <Button onClick={() => handleNewGame(6)} variant="contained" size="large">Advanced</Button>
           </div>
         </>
       )}
-      {(modal === "win" || modal === "lose") && (
-        <Overlay
-          content={<WinLoseModal type={modal} endGamePress={handleEndGame}/>}
-        />
-      )}
-      {modal === "reset" && (
-        <Overlay
-          closeOverlay={() => setModal(null)}
-          content={
-            <ResetModal endGamePress={handleEndGame} cancelPress={() => setModal(null)} />
-          }
-        />
-      )}
+      { modal && (
+        modal === "reset" ? (
+          <Overlay
+            closeOverlay={() => setModal(null)}
+            content={
+              <ResetModal
+                endGamePress={handleNewGame}
+                cancelPress={() => setModal(null)}
+                incrLoseScore={() => handleScoreChange(false)}
+              />
+            }
+          />
+        ) : (
+          <Overlay
+            content={
+              <WinLoseModal
+                isWin={modal === "win"}
+                newGamePress={handleNewGame}
+              />}
+          />
+      ))}
     </div>
   );
 }

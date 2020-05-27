@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import { AccessAlarm } from '@material-ui/icons';
 import './Timer.css';
 
-const Timer = ({ endGame }) => {
-  const [time, setTime] = useState(90000);
+const Timer = ({ gameID, paused, handleLoseGame }) => {
+  const [time, setTime] = useState(9000);//90000);
+  const prevGameIdRef = useRef();
 
   useEffect(() => {
-    if (time > 0) {
-      const timer = setTimeout(() => setTime(moment(time).subtract(1, 's')), 1000);
-      return () => clearTimeout(timer)
-    } else {
-      endGame();
-  }});
+    if (!paused) {
+      if (time <= 0) {
+        handleLoseGame();
+      } else {
+        const timer = setTimeout(() => setTime(moment(time).subtract(1, 's')), 1000);
+        return () => clearTimeout(timer)
+      }
+    }
+    // When the GameID changes we reset the clock
+    if (prevGameIdRef.current !== gameID) {
+      prevGameIdRef.current = gameID;
+      setTime(9000); //90000);
+    }
+  });
 
   return (
     <div className="Timer">

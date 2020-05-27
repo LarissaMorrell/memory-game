@@ -1,20 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PlayingCard from "../components/PlayingCard";
 import './Board.css';
 
-function Board({ level, winGame }) {
+function Board({ gameID, level, paused, handleWinGame }) {
   const [matched, setMatched] = useState(new Set());
   const [selectedVal, setSelectedVal] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
   const [cardValues, setCardValues] = useState();
+  const prevGameIdRef = useRef();
 
   useEffect(() => {
-    if (matched.size === Math.pow(level, 2)) {
-      winGame();
+    // When the GameID changes we start a new game
+    if (prevGameIdRef.current !== gameID) {
+      prevGameIdRef.current = gameID;
+      resetBoard();
     }
+
+    if (matched.size === Math.pow(level, 2) && !paused)
+      handleWinGame();
   });
 
-  useEffect(() => {
+  const resetBoard = () => {
+    matched.clear();
+    setSelectedVal(null);
+    setSelectedIds([]);
+    shuffleCards();
+  }
+
+  const shuffleCards = () => {
     const cards = [];
     const cardCount = level * level;
 
@@ -31,9 +44,9 @@ function Board({ level, winGame }) {
       }
     }
     setCardValues(cards);
-  }, [level]);
+  }
 
-  const handleClick = (id, value) => {
+  const handleSelectCard = (id, value) => {
     if (matched.has(id) || selectedIds.includes(id) || selectedIds.length > 1) return;
 
     // When a card has already been selected, we check the value.
@@ -65,7 +78,7 @@ function Board({ level, winGame }) {
           id={cardId}
           value={cardValues && cardValues[r * level + c]}
           faceUp={matched.has(cardId) || selectedIds.includes(cardId)}
-          handleClick={handleClick}
+          handleClick={handleSelectCard}
         />);
     }
     board.push(<div className="card-row" key={`row-${r}`}>{row}</div>);

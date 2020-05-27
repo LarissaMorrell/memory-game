@@ -9,14 +9,14 @@ const ResetModal = ({ endGamePress, cancelPress }) => (
 			color="primary"
 			size="medium"
 			variant="contained"
-			onClick={() => endGamePress(false)}
+			onClick={() => endGamePress()}
 		>
 			Play Again!
 		</Button>
 		<Button
 			size="medium"
 			variant="outlined"
-			onClick={() => endGamePress(true)}
+			onClick={() => endGamePress(null)}
 		>
 			Change Level
 		</Button>
