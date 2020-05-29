@@ -4,7 +4,6 @@
 }
 
 .PlayingCard {
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,12 +11,14 @@
   min-width: 80px;
   height: 15vw;
   min-height: 120px;
-  border-radius: 5px;
   padding: 8px;
-  border: solid 1px #000000;
+  border: solid 2px #24345f;
+  border-radius: 5px;
+  box-shadow: 5px 5px rgba(83, 104, 120, 0.2);
 }
 
 .face-up-card {
+  color: #24345f;
   font-size: 60px;
 }
 
