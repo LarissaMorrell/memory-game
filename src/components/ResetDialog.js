@@ -25,8 +25,7 @@ const ResetDialog = ({ resetGamePress, cancelPress }) => {
 				{"Reset Game"}</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
-						Let Google help apps determine location. This means sending anonymous location data to
-						Google, even when no apps are running.
+						So you've made a mess of it, have you? Quitters don't get very far, but if you want to reset this round it will count against you as a loss.
 					</DialogContentText>
 				</DialogContent>
 			<DialogActions>
