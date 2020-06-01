@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
+import { Typography } from '@material-ui/core';
 import { AccessAlarm } from '@material-ui/icons';
 import './Timer.css';
 
@@ -22,15 +23,14 @@ const Timer = ({ gameID, paused, handleLoseGame }) => {
       setTime(90000);
     }
   });
-
-  return (
-    <div className="Timer">
-      <AccessAlarm className="icon" style={ time <= 5000 ? { color: "red" } : null} />
-      <h2 style={ time <= 5000 ? { color: "red" } : null}>
+  if (gameID)
+    return (
+      <Typography className="Timer" variant="h6">
+        <AccessAlarm style={ time <= 5000 ? { color: "red" } : null} />
         {moment(time).format('m:ss')}
-      </h2>
-    </div>
-  );
+      </Typography>
+    );
+  return null;
 }
 
 export default Timer;

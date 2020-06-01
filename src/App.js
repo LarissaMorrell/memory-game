@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
-import Timer from './components/Timer';
 import Board from './containers/Board';
+import Header from './components/Header'
 import Overlay from './components/Overlay';
 import WinLoseModal from './components/WinLoseModal';
 import ResetModal from './components/ResetModal';
@@ -39,24 +39,12 @@ function App() {
 
   return (
     <div className="App">
-      <header>
-        <h1>Quarantine Time Killer: Match Game</h1>
-        {level ? (
-          <Timer
-            gameID={gameID}
-            paused={modal === "lose" || modal === "win"}
-            handleLoseGame={() => handleWinLoseGame(false)}
-          />
-          ) : (
-          <div>
-            <p>A project created by Larissa Morrell, May 2020</p>
-            <p>You will have 90 seconds to complete all matches. Beat the clock to win the round!</p>
-          </div>
-        )}
-        <h3 className="scoreboard">
-          {`Wins: ${score.wins}, Losses: ${score.losses}`}
-        </h3>
-      </header>
+      <Header
+        score={score}
+        paused={modal === "lose" || modal === "win"}
+        gameID={gameID}
+        handleWinLoseGame={handleWinLoseGame}
+      />
       {level ? (
           <>
             <Button onClick={() => setModal("reset")}>
