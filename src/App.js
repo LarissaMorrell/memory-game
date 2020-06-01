@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import Board from './containers/Board';
 import Header from './components/Header'
-import Overlay from './components/Overlay';
-import WinLoseModal from './components/WinLoseModal';
-import ResetModal from './components/ResetModal';
+import WinLoseDialog from './components/WinLoseDialog';
+import ResetDialog from './components/ResetDialog';
 import './App.css';
 
 function App() {
@@ -21,10 +20,10 @@ function App() {
     }
   }
 
-  const handleNewGame = newLevel => {
+  const handleNewGame = (newLevel=level) => {
     setModal(null);
-    setGameID(Math.floor(Math.random() * 100000000));
-    typeof newLevel !== "undefined" && setLevel(newLevel);
+    setGameID(newLevel ? Math.floor(Math.random() * 100000000) : null);
+    setLevel(newLevel);
   }
 
   const handleResetGame = newLevel => {
@@ -47,7 +46,10 @@ function App() {
       />
       {level ? (
           <>
-            <Button onClick={() => setModal("reset")}>
+            <Button
+              variant="outlined"
+              onClick={() => setModal("reset")}
+            >
               Reset
             </Button>
             <Board
@@ -69,24 +71,16 @@ function App() {
       )}
       { modal && (
         modal === "reset" ? (
-          <Overlay
-            closeOverlay={() => setModal(null)}
-            content={
-              <ResetModal
-                resetGamePress={handleResetGame}
-                cancelPress={() => setModal(null)}
-                incrLoseScore={() => handleScoreChange(false)}
-              />
-            }
-          />
+        <ResetDialog
+          resetGamePress={handleResetGame}
+          cancelPress={() => setModal(null)}
+          incrLoseScore={() => handleScoreChange(false)}
+        />
         ) : (
-          <Overlay
-            content={
-              <WinLoseModal
-                isWin={modal === "win"}
-                newGamePress={handleNewGame}
-              />}
-          />
+        <WinLoseDialog
+          isWin={modal === "win"}
+          newGamePress={handleNewGame}
+        />
       ))}
     </div>
   );
