@@ -4,9 +4,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { blue, orange, red } from '@material-ui/core/colors';
 import './index.css';
 import App from './App';
+import cardDesign from './assets/card_design.jpg';
 import * as serviceWorker from './serviceWorker';
-
-new Image().src = '/assets/card_design.jpg';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +22,7 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <App />
     </MuiThemeProvider>
+    <img className="preload" src={cardDesign} alt="" />
   </React.Fragment>,
   document.getElementById('root')
 );
