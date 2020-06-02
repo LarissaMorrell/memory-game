@@ -5,26 +5,26 @@ import { AccessAlarm } from '@material-ui/icons';
 import './Timer.css';
 
 const Timer = ({ gameID, paused, handleLoseGame }) => {
-  const [time, setTime] = useState(9000);
+  const [time, setTime] = useState(90000);
   const prevGameIdRef = useRef();
 
   useEffect(() => {
-    // When the GameID changes we reset the clock
-    if (prevGameIdRef.current !== gameID) {
+    if (!gameID || prevGameIdRef.current !== gameID) {
       prevGameIdRef.current = gameID;
-      setTime(9000);
+      setTime(90000);
     }
-    if (!gameID) return;
 
     if (!paused) {
       if (time <= 0) {
         handleLoseGame();
+        setTime(90000);
       } else {
         const timer = setTimeout(() => setTime(moment(time).subtract(1, 's')), 1000);
         return () => clearTimeout(timer)
       }
     }
-  });
+  }, [gameID, handleLoseGame, paused, time]);
+  
   if (gameID)
     return (
       <Typography className="Timer" variant="h6">

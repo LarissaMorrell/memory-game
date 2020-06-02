@@ -18,6 +18,7 @@ const WinLoseDialog = ({ isWin, newGamePress }) => {
 		<Dialog
 			fullScreen={fullScreen}
 			open={true}
+			transitionDuration={500}
 			aria-labelledby="win-lose-dialog"
 		>
 			<DialogTitle id="win-lose-dialog">
