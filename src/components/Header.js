@@ -17,7 +17,10 @@ const Header = ({ gameID, score, paused, handleWinLoseGame }) => {
     scoring: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-end'
+      alignItems: 'flex-start',
+      [theme.breakpoints.up('sm')]: {
+        alignItems: 'flex-end',
+      },
     }
   }));
 
