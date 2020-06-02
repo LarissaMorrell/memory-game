@@ -47,6 +47,7 @@ function App() {
       {level ? (
           <>
             <Button
+              className="reset"
               variant="outlined"
               onClick={() => setModal("reset")}
             >
