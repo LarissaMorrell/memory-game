@@ -17,11 +17,11 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <MuiThemeProvider theme={theme}>
       <App />
     </MuiThemeProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 
