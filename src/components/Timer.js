@@ -27,8 +27,12 @@ const Timer = ({ gameID, paused, handleLoseGame }) => {
   
   if (gameID)
     return (
-      <Typography className="Timer" variant="h6">
-        <AccessAlarm style={ time <= 5000 ? { color: "red" } : null} />
+      <Typography
+        className="Timer"
+        variant="h6"
+        color={time <= 5000 ? "secondary" : "initial"}
+      >
+        <AccessAlarm style={ time <= 5000 ? { color: "secondary" } : null} />
         {moment(time).format('m:ss')}
       </Typography>
     );
