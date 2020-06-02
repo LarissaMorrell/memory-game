@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
-import logo from '../assets/card_design.jpg';
+import cardDesign from '../assets/card_design.jpg';
 import './PlayingCard.css';
 
 const PlayingCard = ({ id, value, faceUp, handleClick }) => (
@@ -10,7 +10,7 @@ const PlayingCard = ({ id, value, faceUp, handleClick }) => (
         className="PlayingCard"
         onClick={() => handleClick(id, value)}
       >
-        <img src={logo} alt="face down card" />
+        <img src={cardDesign} alt="" />
       </div>
       <div
         className="PlayingCard face-up-card"
