@@ -6,6 +6,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+new Image().src = '/assets/card_design.jpg';
+
 const theme = createMuiTheme({
   palette: {
     primary: blue,
