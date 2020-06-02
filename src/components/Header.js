@@ -32,7 +32,7 @@ const Header = ({ gameID, score, paused, handleWinLoseGame }) => {
           className={classes.title}
           variant="h5"
         >
-          Match Game
+          Memory Game
         </Typography>
         <div className={classes.scoring}>
           <Typography variant="h6">
