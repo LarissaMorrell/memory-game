@@ -27,7 +27,7 @@ const WinLoseDialog = ({ isWin, newGamePress }) => {
 			<DialogContent>
 				<DialogContentText>
 					{isWin ? (
-							"Wow! Is there anything you will forget? You win this round. How about another one?"
+							"Wow! Is there anything you forget? You win this round. How about another one?"
 						) : (
 							"Time has run out, but don't worry - the best way to improve is to keep trying."
 					)}
